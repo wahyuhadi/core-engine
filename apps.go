@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"core-engine/internal/runner"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"runtime"
@@ -73,8 +74,6 @@ func main() {
 		defer cancel()
 	}
 
-	options.Silent = true
-	options.JSONL = true
 	nucleiRunner, err := runner.New(options)
 	if err != nil {
 		gologger.Fatal().Msgf("Could not create runner: %s\n", err)
@@ -344,6 +343,8 @@ on extensive configurability, massive extensibility and ease of use.`)
 
 	gologger.DefaultLogger.SetTimestamp(options.Timestamp, levels.LevelDebug)
 	options.Silent = true
+	options.JSONL = true
+	options.ExcludeSeverities = severity.Severities{severity.Info, severity.Low}
 	if options.VerboseVerbose {
 		// hide release notes if silent mode is enabled
 		installer.HideReleaseNotes = false
@@ -369,6 +370,7 @@ on extensive configurability, massive extensibility and ease of use.`)
 		config.DefaultConfig.SetTemplatesDir(options.NewTemplatesDirectory)
 	}
 
+	log.Println(options.ExcludeSeverities)
 	cleanupOldResumeFiles()
 	return flagSet
 }
