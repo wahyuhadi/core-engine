@@ -73,6 +73,8 @@ func main() {
 		defer cancel()
 	}
 
+	options.Silent = true
+	options.JSONL = true
 	nucleiRunner, err := runner.New(options)
 	if err != nil {
 		gologger.Fatal().Msgf("Could not create runner: %s\n", err)
@@ -341,7 +343,7 @@ on extensive configurability, massive extensibility and ease of use.`)
 	_ = flagSet.Parse()
 
 	gologger.DefaultLogger.SetTimestamp(options.Timestamp, levels.LevelDebug)
-
+	options.Silent = true
 	if options.VerboseVerbose {
 		// hide release notes if silent mode is enabled
 		installer.HideReleaseNotes = false
