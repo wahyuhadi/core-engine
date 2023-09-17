@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"core-engine/internal/runner"
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"runtime"
@@ -370,7 +369,6 @@ on extensive configurability, massive extensibility and ease of use.`)
 		config.DefaultConfig.SetTemplatesDir(options.NewTemplatesDirectory)
 	}
 
-	log.Println(options.ExcludeSeverities)
 	cleanupOldResumeFiles()
 	return flagSet
 }
